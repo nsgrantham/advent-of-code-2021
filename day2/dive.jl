@@ -1,7 +1,7 @@
 commands = readlines("day2/commands.txt")
 
 function dive(commands)
-    h, d = (0, 0)
+    h, d = 0, 0
     for command in commands
         dir, x = split(command)
         x = parse(Int, x)
@@ -11,7 +11,7 @@ function dive(commands)
             d += dir == "down" ? x : -x
         end
     end
-    return (h, d)
+    h, d
 end
 
 h, d = dive(commands)
@@ -20,7 +20,7 @@ p1 = h * d
 @show p1
 
 function dive2(commands)
-    h, d, a = (0, 0, 0)
+    h, d, a = 0, 0, 0
     for command in commands
         dir, x = split(command)
         x = parse(Int, x)
@@ -31,7 +31,7 @@ function dive2(commands)
             a += dir == "down" ? x : -x
         end
     end
-    return (h, d, a)
+    h, d, a
 end
 
 h, d, _ = dive2(commands)
