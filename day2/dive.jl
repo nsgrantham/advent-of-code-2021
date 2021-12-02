@@ -1,45 +1,40 @@
 commands = readlines("day2/commands.txt")
 
-function move(sub, dir, x)
-    h, d = sub
-    dir == "forward" && return (h = h + x, d)
-    dir == "down" && return (h, d = d + x)
-    dir == "up" && return (h, d = d - x)
-end
-
 function dive(commands)
-    sub = (h = 0, d = 0)
+    h, d = (0, 0)
     for command in commands
-        dir, x = split(command, " ")
+        dir, x = split(command)
         x = parse(Int, x)
-        sub = move(sub, dir, x)
+        if dir == "forward"
+            h += x
+        else
+            d += dir == "down" ? x : -x
+        end
     end
-    return sub
+    return (h, d)
 end
 
-sub = dive(commands)
-p1 = sub.h * sub.d
+h, d = dive(commands)
+p1 = h * d
 
 @show p1
 
-function move2(sub, dir, x)
-    h, d, a = sub
-    dir == "forward" && return (h = h + x, d = d + a * x, a)
-    dir == "down" && return (h, d, a = a + x)
-    dir == "up" && return (h, d, a = a - x)
-end
-
 function dive2(commands)
-    sub = (h = 0, d = 0, a = 0)
+    h, d, a = (0, 0, 0)
     for command in commands
-        dir, x = split(command, " ")
+        dir, x = split(command)
         x = parse(Int, x)
-        sub = move2(sub, dir, x)
+        if dir == "forward"
+            h += x
+            d += x * a
+        else
+            a += dir == "down" ? x : -x
+        end
     end
-    return sub
+    return (h, d, a)
 end
 
-sub = dive2(commands)
-p2 = sub.h * sub.d
+h, d, _ = dive2(commands)
+p2 = h * d
 
 @show p2
