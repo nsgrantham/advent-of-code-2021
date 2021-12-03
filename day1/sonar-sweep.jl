@@ -4,6 +4,6 @@ p1 = sum(diff(depths) .> 0)
 
 @show p1
 
-p2 = sum(diff([sum(depths[i-2:i]) for i in 3:length(depths)]) .> 0)
+p2 = sum(diff([sum(depths[i:i+2]) for i in 1:length(depths)-2]) .> 0)
 
 @show p2
