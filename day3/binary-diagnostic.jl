@@ -3,10 +3,10 @@ numbers = permutedims(hcat(collect.(numbers)...))
 numbers = parse.(Int, numbers)
 
 function find_rates(numbers)
-    γ_ba = sum(numbers, dims = 1) .> size(numbers, 1) / 2
-    ε_ba = map(~, γ_ba)  # bitwise not
-    γ = parse(Int, join(convert(Array{Int}, γ_ba)), base = 2)
-    ε = parse(Int, join(convert(Array{Int}, ε_ba)), base = 2)
+    γ_bits = sum(numbers, dims = 1) .> size(numbers, 1) / 2
+    ε_bits = map(~, γ_bits)  # bitwise not
+    γ = parse(Int, join(convert(Array{Int}, γ_bits)), base = 2)
+    ε = parse(Int, join(convert(Array{Int}, ε_bits)), base = 2)
     γ, ε
 end
 
