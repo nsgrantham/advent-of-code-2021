@@ -5,7 +5,7 @@ function draw_line(vent)
     [zip(xs, ys)...]
 end
 
-function count_overlaps(lines)
+function overlap_lines(lines)
     overlaps = Dict{Tuple{Int, Int}, Int}()
     points = reduce(vcat, lines)
     for point in points
@@ -14,24 +14,26 @@ function count_overlaps(lines)
     overlaps
 end
 
+function is_hv(vent)
+    x1, y1, x2, y2 = vent
+    x1 == x2 || y1 == y2
+end
+
 vents = [
     parse.(Int, split(replace(vent, " -> " => ','), ','))
     for vent in readlines("day5/vents.txt")
 ]
 
-is_hv(vent) = (vent[1] == vent[3]) | (vent[2] == vent[4])
-
-hv_vents = filter(is_hv, vents)
-hv_lines = draw_line.(hv_vents)
-hv_overlaps = count_overlaps(hv_lines)
+hv_lines = draw_line.(filter(is_hv, vents))
+hv_overlaps = overlap_lines(hv_lines)
 
 p1 = sum(values(hv_overlaps) .>= 2)
 
 @show p1
 
-all_lines = draw_line.(vents)
-all_overlaps = count_overlaps(all_lines)
+lines = draw_line.(vents)
+overlaps = overlap_lines(lines)
 
-p2 = sum(values(all_overlaps) .>= 2)
+p2 = sum(values(overlaps) .>= 2)
 
 @show p2
