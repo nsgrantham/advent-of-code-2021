@@ -1,5 +1,3 @@
-lines = readlines("day10/lines.txt")
-
 function check_syntax(line)
     char_pair = Dict(
         '(' => ')',
@@ -56,7 +54,7 @@ function score_completion(completion)
     score
 end
 
-
+lines = readlines("day10/lines.txt")
 results = check_syntax.(lines)
 
 errors = [error for (status, error) in results if status == "corrupt"]
