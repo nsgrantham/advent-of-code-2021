@@ -1,5 +1,9 @@
 function measure_energy(octos, steps; stop_on_all_flash = false)
     octos = pairs(copy(octos))
+    neighbors = Dict(
+        (index, filter(i -> i in keys(octos), find_neighbors(index)))
+        for index in keys(octos)
+    )
     flashes = 0
     for step in 1:steps
         for index in keys(octos)
@@ -10,8 +14,7 @@ function measure_energy(octos, steps; stop_on_all_flash = false)
                 if energy > 9
                     flashes += 1
                     octos[index] = 0
-                    neighbors = filter(i -> i in keys(octos), find_neighbors(index))
-                    for neighbor in neighbors
+                    for neighbor in neighbors[index]
                         if octos[neighbor] > 0
                             octos[neighbor] += 1
                         end

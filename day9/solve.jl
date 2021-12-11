@@ -23,15 +23,18 @@ p1 = sum(heightmap[i] + 1 for i in find_lows(heightmap))
 
 function find_basins(heightmap)
     lows = find_lows(heightmap)
+    neighbors = Dict((index, find_neighbors(index)) for index in keys(heightmap))
     basins = []
     for low in lows
         indices = Set([low])
         basin = empty(indices)
         while !isempty(indices)
             index = pop!(indices)
-            neighbors = find_neighbors(index)
-            filter!(i -> get(heightmap, i, 9) < 9 && !(i in basin), neighbors)
-            union!(indices, neighbors)
+            new_indices = filter(
+                i -> get(heightmap, i, 9) < 9 && !(i in basin),
+                neighbors[index]
+            )
+            union!(indices, new_indices)
             push!(basin, index)
         end
         push!(basins, basin)
