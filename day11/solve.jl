@@ -9,7 +9,7 @@ function measure_energy(octos, steps; stop_on_all_flash = false)
         for index in keys(octos)
             octos[index] += 1
         end
-        while any(values(octos) .> 9)
+        while any(x -> x > 9, values(octos))
             for (index, energy) in octos
                 if energy > 9
                     flashes += 1
