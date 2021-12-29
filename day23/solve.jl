@@ -132,50 +132,6 @@ function isorganized(burrow::Burrow)
     all(ishome(amphipod, burrow) for amphipod in burrow.amphipods)
 end
 
-# function next(burrow::Burrow)
-#     burrows_energy = Tuple{Burrow, Int}[]
-#     energy = totalenergy(burrow)
-#     for (i, amphipod) in enumerate(burrow.amphipods)
-#         for move in moves(amphipod, burrow)
-#             amphipods_copy = copy(burrow.amphipods)
-#             splice!(amphipods_copy, i, [move])
-#             next_burrow = Burrow(amphipods_copy, burrow.spaces)
-#             push!(burrows_energy, (next_burrow, totalenergy(next_burrow) - energy))
-#         end
-#     end
-#     burrows_energy
-# end
-
-# """
-# Use Dijkstra's algorithm to find burrow organization with the lowest total energy
-# """
-# function organize(burrow::Burrow)
-#     queue = [(burrow, 0)]
-#     prev_burrow = Dict{Burrow, Burrow}()
-#     tentative_energy = Dict{Burrow, Int}()
-#     while !isempty(queue)
-#         curr_burrow, curr_energy = popat!(queue, last(findmin(last, queue)))
-#         if isorganized(curr_burrow)
-#             burrow_states = [curr_burrow]
-#             while first(burrow_states) != burrow
-#                 pushfirst!(burrow_states, prev_burrow[first(burrow_states)])
-#             end
-#             return burrow_states, curr_energy
-#         end
-#         if curr_energy <= get!(tentative_energy, curr_burrow, typemax(Int))
-#             tentative_energy[curr_burrow] = curr_energy
-#             for (next_burrow, energy_used) in next(curr_burrow)
-#                 next_energy = curr_energy + energy_used
-#                 if next_energy < get!(tentative_energy, next_burrow, typemax(Int))
-#                     prev_burrow[next_burrow] = curr_burrow
-#                     push!(queue, (next_burrow, next_energy))
-#                 end
-#             end
-#         end
-#     end
-#     nothing
-# end
-
 function moves(burrow::Burrow)
     burrows = Burrow[]
     for (i, amphipod) in enumerate(burrow.amphipods)
