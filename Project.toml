@@ -1,0 +1,13 @@
+name = "AdventOfCode"
+uuid = "7195b7a9-be5e-451d-bb35-2ea594743851"
+authors = ["Neal Grantham <neal@nsgrantham.com>"]
+version = "0.1.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+julia = "1.7"
+
+[targets]
+test = ["Test"]

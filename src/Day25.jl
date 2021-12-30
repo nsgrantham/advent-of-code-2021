@@ -1,3 +1,7 @@
+module Day25
+
+using AdventOfCode
+
 struct SeaCucumberHerd
     east::Dict{Int, Vector{Int}}
     south::Dict{Int, Vector{Int}}
@@ -49,8 +53,9 @@ function Base.parse(::Type{SeaCucumberHerd}, lines::Vector{String})
     SeaCucumberHerd(east, south, length(lines), length(lines[1]))
 end
 
-herd = parse(SeaCucumberHerd, readlines("day25/cucumbers.txt"))
+function solve(input = datapath("2021", "day25.txt"))
+    herd = parse(SeaCucumberHerd, readlines(input))
+    maximum(Iterators.takewhile(_ -> step!(herd) > 0, Iterators.countfrom(1))) + 1
+end
 
-@time p1 = maximum(Iterators.takewhile(_ -> step!(herd) > 0, Iterators.countfrom(1))) + 1
-
-@show p1
+end
