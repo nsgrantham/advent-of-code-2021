@@ -1,4 +1,4 @@
-module 2021
+module Year2021
 
 include("Day25.jl")
 
